@@ -24,6 +24,8 @@ app.get('/', (req, res) => {
   res.status(200).send('Hello, world!').end();
 });
 
+app.use(express.static('public'));
+
 // Start the server
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
