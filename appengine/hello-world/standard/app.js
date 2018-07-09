@@ -17,14 +17,30 @@
 
 // [START app]
 const express = require('express');
+const bodyParser = require('body-parser');
+const users = [];
 
 const app = express();
+
+app.use(express.static('public'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
 
 app.get('/', (req, res) => {
   res.status(200).send('Hello, world!').end();
 });
 
-app.use(express.static('public'));
+app.get('/api/users', (req, res) => {  
+  res.status(200).json( users );
+});
+
+app.post('/api/user', (req, res) => {
+  console.log( req.body );
+  users.push( req.body );
+  res.json( users );
+})
+
+
 
 // Start the server
 const PORT = process.env.PORT || 8080;
